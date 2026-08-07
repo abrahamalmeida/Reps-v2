@@ -33,13 +33,16 @@ Reconstrucción desde cero de la app **Reps** (V1: `abrahamalmeida/Reps`).
 
 ## Migraciones de base de datos
 
-Se gestionan con la Supabase CLI (`supabase/`). Flujo típico:
+Se gestionan con la **Supabase CLI pineada en `package.json`** (`npm run supabase` / `npx supabase`). Usamos `v2.111.0` por la regresión [#6115](https://github.com/supabase/cli/issues/6115) (el `link` falla en v2.112.0+).
 
 ```sh
-supabase login
+supabase login                  # una vez
 supabase link --project-ref pgidddbhnuwmfinymzax
-supabase db push
+supabase db push                # aplica supabase/migrations/*.sql
+supabase migration list         # estado aplicado
 ```
+
+> La CLI global y el comando `supabase` del PATH pueden quedar desactualizados; para garantizar la versión correcta usa `npx supabase` (devDependency pineada) o `npm i -g supabase@2.111.0`.
 
 ## Estructura
 
