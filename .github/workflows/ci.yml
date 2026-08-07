@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    name: Typecheck · Lint · Build · Test
+    runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: https://pgidddbhnuwmfinymzax.supabase.co
+      VITE_SUPABASE_ANON_KEY: sb_publishable_WtSe5WfdoSMp46lRIJy5GA_0io37UQ9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run test
