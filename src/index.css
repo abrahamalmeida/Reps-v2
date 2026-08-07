@@ -1,1 +1,44 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
+
+  /* Superficies (dark premium) */
+  --color-surface: #07080d;
+  --color-surface-2: #0d1017;
+  --color-surface-3: #151926;
+  --color-surface-4: #1d2331;
+
+  --color-line: #232a3d;
+
+  /* Acentos */
+  --color-acid: #a3e635;
+  --color-acid-dim: #8cc82e;
+  --color-ultra: #8b5cf6;
+  --color-ember: #f59e0b;
+  --color-rose: #fb7185;
+
+  --shadow-card:
+    0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 10px 30px -12px rgb(0 0 0 / 0.6);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-surface text-slate-200 antialiased;
+  }
+
+  ::selection {
+    @apply bg-acid/30 text-white;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+}
