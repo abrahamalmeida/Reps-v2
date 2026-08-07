@@ -32,7 +32,15 @@ export type ButtonProps = ComponentProps<'button'> & {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant = 'primary', size = 'md', isLoading = false, disabled, className, children, ...props },
+    {
+      variant = 'primary',
+      size = 'md',
+      isLoading = false,
+      disabled,
+      className,
+      children,
+      ...props
+    },
     ref,
   ) => (
     <button

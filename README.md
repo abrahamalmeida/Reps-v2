@@ -14,17 +14,17 @@ Reconstrucción desde cero de la app **Reps** (V1: `abrahamalmeida/Reps`).
 
 ## Scripts
 
-| Comando | Descripción |
-| --- | --- |
-| `npm run dev` | Dev server |
-| `npm run typecheck` | TypeScript `tsc -b` |
-| `npm run lint` | oxlint |
-| `npm run test` | Vitest (una pasada) |
-| `npm run test:watch` | Vitest (watch) |
-| `npm run test:coverage` | Vitest con cobertura v8 |
-| `npm run build` | Typecheck + build de producción |
-| `npm run format` | Prettier (escribe) |
-| `npm run format:check` | Prettier (solo verifica) |
+| Comando                 | Descripción                     |
+| ----------------------- | ------------------------------- |
+| `npm run dev`           | Dev server                      |
+| `npm run typecheck`     | TypeScript `tsc -b`             |
+| `npm run lint`          | oxlint                          |
+| `npm run test`          | Vitest (una pasada)             |
+| `npm run test:watch`    | Vitest (watch)                  |
+| `npm run test:coverage` | Vitest con cobertura v8         |
+| `npm run build`         | Typecheck + build de producción |
+| `npm run format`        | Prettier (escribe)              |
+| `npm run format:check`  | Prettier (solo verifica)        |
 
 ## Configuración
 

@@ -5,6 +5,8 @@ import { AppShell } from '@/app/layouts/AppShell'
 import { AuthLayout } from '@/app/layouts/AuthLayout'
 import { PageLoader } from '@/app/PageLoader'
 import ErrorPage from '@/app/pages/ErrorPage'
+import { AuthGate } from '@/app/guards/AuthGate'
+import { GuestOnly } from '@/app/guards/GuestOnly'
 
 const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'))
 const WorkoutsPage = lazy(() => import('@/features/workouts/pages/WorkoutsPage'))
@@ -25,23 +27,28 @@ function lazyPage(Component: ComponentType) {
 
 export const router = createBrowserRouter([
   {
-    element: <AppShell />,
-    errorElement: <ErrorPage />,
+    element: <AuthLayout />,
     children: [
-      { index: true, element: <Navigate to="/dashboard" replace /> },
-      { path: '/dashboard', element: lazyPage(DashboardPage) },
-      { path: '/rutinas', element: lazyPage(WorkoutsPage) },
-      { path: '/ejercicios', element: lazyPage(ExercisesPage) },
-      { path: '/progreso', element: lazyPage(ProgressPage) },
-      { path: '/perfil', element: lazyPage(ProfilePage) },
-      { path: '*', element: lazyPage(NotFoundPage) },
+      { path: '/login', element: <GuestOnly>{lazyPage(LoginPage)}</GuestOnly> },
+      { path: '/registro', element: <GuestOnly>{lazyPage(RegisterPage)}</GuestOnly> },
     ],
   },
   {
-    element: <AuthLayout />,
+    element: <AuthGate />,
     children: [
-      { path: '/login', element: lazyPage(LoginPage) },
-      { path: '/registro', element: lazyPage(RegisterPage) },
+      {
+        element: <AppShell />,
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Navigate to="/dashboard" replace /> },
+          { path: '/dashboard', element: lazyPage(DashboardPage) },
+          { path: '/rutinas', element: lazyPage(WorkoutsPage) },
+          { path: '/ejercicios', element: lazyPage(ExercisesPage) },
+          { path: '/progreso', element: lazyPage(ProgressPage) },
+          { path: '/perfil', element: lazyPage(ProfilePage) },
+          { path: '*', element: lazyPage(NotFoundPage) },
+        ],
+      },
     ],
   },
 ])

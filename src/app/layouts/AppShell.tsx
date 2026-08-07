@@ -1,7 +1,10 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { UserRound } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import { cn } from '@/lib/cn'
+import { supabase } from '@/lib/supabase'
 import { Logo } from '@/components/ui/Logo'
+import { Avatar } from '@/components/ui/Avatar'
+import { useCurrentUser } from '@/features/auth/use-current-user'
 import { NAV_ITEMS } from './nav'
 
 function navLinkClass(isActive: boolean) {
@@ -14,6 +17,13 @@ function navLinkClass(isActive: boolean) {
 }
 
 export function AppShell() {
+  const { user, profile } = useCurrentUser()
+  const displayName = profile?.full_name || user?.email || 'Tu cuenta'
+
+  async function handleLogout() {
+    await supabase.auth.signOut()
+  }
+
   return (
     <div className="min-h-screen">
       {/* Sidebar escritorio */}
@@ -28,13 +38,19 @@ export function AppShell() {
           ))}
         </nav>
         <div className="flex items-center gap-3 rounded-lg border border-line bg-surface-3/50 px-3 py-2.5">
-          <span className="grid size-8 place-items-center rounded-full bg-ultra/20 text-ultra">
-            <UserRound className="size-4" aria-hidden />
-          </span>
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-slate-200">Invita</p>
-            <p className="truncate text-xs text-slate-500">tu cuenta</p>
+          <Avatar name={displayName} />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-slate-200">{displayName}</p>
+            <p className="truncate text-xs text-slate-500">{user?.email}</p>
           </div>
+          <button
+            type="button"
+            onClick={() => void handleLogout()}
+            aria-label="Cerrar sesión"
+            className="rounded-md p-1.5 text-slate-500 transition-colors hover:bg-surface-4 hover:text-rose"
+          >
+            <LogOut className="size-4" aria-hidden />
+          </button>
         </div>
       </aside>
 
